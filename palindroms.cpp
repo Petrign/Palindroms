@@ -18,7 +18,7 @@ bool ispal(int *a, int lpal)
 bool tryoddpal(int *a, int cent, int width, int l)
 {
 	if (width > cent || width > l-cent-1) return false;
-	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	//Checker
 	return ispal(a+cent-width, 1+2*width);
 	
 }
@@ -26,12 +26,12 @@ bool tryoddpal(int *a, int cent, int width, int l)
 bool tryevenpal(int *a, int cent, int width, int l)
 {
 	if (width > cent || width > l-cent-1) return false;
-	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	//Checker
 	return ispal(a+cent-width, 2*width+2);
 }
 
 
-int longestoddpal(int *a, int cent, int l) //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+int longestoddpal(int *a, int cent, int l) //Finding possible "Radius"
 {
 	int max = 0;
 	for (int i = 0; tryoddpal(a, cent, i, l); i++)
@@ -41,7 +41,7 @@ int longestoddpal(int *a, int cent, int l) //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ "ï¿½ï¿½ï¿½ï¿½
 	return max;
 }
 
-int longestevenpal(int *a, int cent, int l) //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+int longestevenpal(int *a, int cent, int l) //Finding possible "Radius"
 {
 	int max = 0;
 	for (int i = 0; tryevenpal(a, cent, i, l); i++)
@@ -51,9 +51,7 @@ int longestevenpal(int *a, int cent, int l) //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ "ï¿½ï¿½ï¿½ï¿
 	return max;
 }
 
-//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-int findevenpal(int *a, int l) //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+int findevenpal(int *a, int l) //Finding center
 {
 	int max = 0;
 	int pl = 0;
@@ -69,7 +67,7 @@ int findevenpal(int *a, int l) //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	return max;
 }
 
-int findoddpal(int *a, int l) //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+int findoddpal(int *a, int l) //Finding center
 {
 	int max = 0;
 	int pl = 0;
@@ -85,7 +83,7 @@ int findoddpal(int *a, int l) //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	return max;
 }
 
-int findpal(int *a, int l) //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+int findpal(int *a, int l) //Finding maximum
 {
 	return std::max(findevenpal(a, l),findoddpal(a,l));
 }
@@ -94,7 +92,7 @@ int findpal(int *a, int l) //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 
 
-bool isdoublepal(int *a, int *b, int lpal) //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½-ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+bool isdoublepal(int *a, int *b, int lpal) 
 {
 	for (int i = 0; i < lpal/2; i++)
 	{
@@ -109,18 +107,18 @@ bool isdoublepal(int *a, int *b, int lpal) //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï
 bool tryodddoublepal(int *a, int *b, int cent, int width, int l)
 {
 	if (width > cent || width > l-cent-1) return false;
-	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	//Checker
 	return isdoublepal(a+cent-width, b+cent-width, 1+2*width);
 }
 
 bool tryevendoublepal(int *a, int *b, int cent, int width, int l)
 {
 	if (width > cent || width > l-cent-1) return false;
-	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	//Checker
 	return isdoublepal(a+cent-width, b+cent-width, 2*width+2);
 }
 
-int longestodddoublepal(int *a, int *b, int cent, int l) //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+int longestodddoublepal(int *a, int *b, int cent, int l) //Finding possible "Radius"
 {
 	int max = 0;
 	for (int i = 0; tryodddoublepal(a, b, cent, i, l); i++)
@@ -130,7 +128,7 @@ int longestodddoublepal(int *a, int *b, int cent, int l) //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	return max;
 }
 
-int longestEvendoublepal(int *a, int *b, int cent, int l) //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+int longestEvendoublepal(int *a, int *b, int cent, int l) //Finding possible "Radius"
 {
 	int max = 0;
 	for (int i = 0; tryevendoublepal(a, b, cent, i, l); i++)
@@ -140,7 +138,7 @@ int longestEvendoublepal(int *a, int *b, int cent, int l) //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿
 	return max;
 }
 
-int findodddoublepal(int *a, int *b, int l) //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+int findodddoublepal(int *a, int *b, int l) //Finding center
 {
 	int max = 0;
 	int pl = 0;
@@ -155,7 +153,7 @@ int findodddoublepal(int *a, int *b, int l) //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	}
 	return max;
 }
-int findEvendoublepal(int *a, int *b, int l) //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+int findEvendoublepal(int *a, int *b, int l) //Finding center
 {
 	int max = 0;
 	int pl = 0;
@@ -171,7 +169,7 @@ int findEvendoublepal(int *a, int *b, int l) //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿
 	return max;
 }
 
-int findDoublepal(int *a, int *b, int l) //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+int findDoublepal(int *a, int *b, int l) //Finding maximum
 {
 	return std::max(findEvendoublepal(a,b,l),findodddoublepal(a,b,l));
 }
