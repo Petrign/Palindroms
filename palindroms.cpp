@@ -90,6 +90,106 @@ int findpal(int *a, int l) //������� ������
 	return std::max(findevenpal(a, l),findoddpal(a,l));
 }
 
+
+
+
+
+bool isdoublepal(int *a, int *b, int lpal) //�������� ���� �������� ���������� ����� �� �����-���������
+{
+	for (int i = 0; i < lpal/2; i++)
+	{
+		if (a[i]+b[i] != a[lpal-i-1]+b[lpal-i-1])
+		{
+			return false;
+		}
+	}	
+	return true;
+}
+
+bool tryodddoublepal(int *a, int *b, int cent, int width, int l)
+{
+	if (width > cent || width > l-cent-1) return false;
+	//��������� �����������
+	return isdoublepal(a+cent-width, b+cent-width, 1+2*width);
+}
+
+bool tryevendoublepal(int *a, int *b, int cent, int width, int l)
+{
+	if (width > cent || width > l-cent-1) return false;
+	//��������� �����������
+	return isdoublepal(a+cent-width, b+cent-width, 2*width+2);
+}
+
+int longestodddoublepal(int *a, int *b, int cent, int l) //������� "�������" �� �������� ��� ���� ��������
+{
+	int max = 0;
+	for (int i = 0; tryodddoublepal(a, b, cent, i, l); i++)
+	{
+		max = i;
+	}
+	return max;
+}
+
+int longestEvendoublepal(int *a, int *b, int cent, int l) //������� "�������" �� ������ ��� ���� ��������
+{
+	int max = 0;
+	for (int i = 0; tryevendoublepal(a, b, cent, i, l); i++)
+	{
+		max = i;
+	}
+	return max;
+}
+
+int findodddoublepal(int *a, int *b, int l) //������� ������
+{
+	int max = 0;
+	int pl = 0;
+	for (int i = 0; i < l-1; i++)
+	{
+		int lp = 2*longestodddoublepal(a, b, i, l)+1;
+		if (max < lp)
+		{
+			max = lp;
+			pl = i;
+		}
+	}
+	return max;
+}
+int findEvendoublepal(int *a, int *b, int l) //������� ������
+{
+	int max = 0;
+	int pl = 0;
+	for (int i = 0; i < l-1; i++)
+	{
+		int lp = 2*longestEvendoublepal(a, b, i, l)+2;
+		if (max < lp)
+		{
+			max = lp;
+			pl = i;
+		}
+	}
+	return max;
+}
+
+int findDoublepal(int *a, int *b, int l) //������� ������
+{
+	return std::max(findEvendoublepal(a,b,l),findodddoublepal(a,b,l));
+}
+
+int carmovement(int *a, int *b, int l, int carInter)
+{
+	int max = 0;
+	for (int carPos = 0; carPos < carInter; carPos++)
+	{
+		max = std::max(max, findDoublepal(a+carPos, b, l));
+	}
+	return max;
+}
+int calcCarInterLength(int n, int m)
+{
+	return abs(n-m);
+}
+
 int main()
 {
 	std::ifstream inp("inputpal.txt");
