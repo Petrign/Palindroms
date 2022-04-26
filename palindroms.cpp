@@ -2,6 +2,7 @@
 #include <vector>
 #include <fstream>
 #include <algorithm>
+#include <cmath>
 
 bool ispal(int *a, int lpal)
 {
@@ -30,7 +31,7 @@ bool tryevenpal(int *a, int cent, int width, int l)
 	return ispal(a+cent-width, 2*width+2);
 }
 
-
+/*
 int longestoddpal(int *a, int cent, int l) //Finding possible "Radius"
 {
 	int max = 0;
@@ -40,15 +41,50 @@ int longestoddpal(int *a, int cent, int l) //Finding possible "Radius"
 	}
 	return max;
 }
+*/ 
+
+int longestoddpal(int *a, int cent, int l) //Finding possible "Radius" using Dichotomy
+{
+	int max = std::min(cent, l-cent-1);
+	int min = 0;
+	int cur = -1;
+	while (min!=max && cur != max && cur != min)
+	{
+		cur = int(std::round((min+max)/2.0));
+		if (tryoddpal(a,cent,cur,l))
+		{
+			min = cur;
+		}
+		else
+		{
+			max = cur;
+		}
+		cur = int(std::round((min+max)/2.0));
+		std::cout << "cur/min/max(odd)" << cur << " " << min << " " << max << " in " << cent  << "\n";
+	}
+	return cur;
+}
 
 int longestevenpal(int *a, int cent, int l) //Finding possible "Radius"
 {
-	int max = 0;
-	for (int i = 0; tryevenpal(a, cent, i, l); i++)
+	int max = std::min(cent, l-cent-1);
+	int min = 0;
+	int cur = -1;
+	while (min!=max && cur != max && cur != min)
 	{
-		max = i;
+		cur = int(std::round((min+max)/2.0));
+		if (tryevenpal(a,cent,cur,l))
+		{
+			min = cur;
+		}
+		else
+		{
+			max = cur;
+		}
+		cur = int(std::round((min+max)/2.0));
+		std::cout << "cur/min/max(even)" <<  cur << " " << min << " " << max << " in " << cent << "\n";
 	}
-	return max;
+	return cur;
 }
 
 int findevenpal(int *a, int l) //Finding center
